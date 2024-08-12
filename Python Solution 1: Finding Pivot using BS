@@ -1,0 +1,23 @@
+class Solution:
+    def findMin(self, nums: List[int]) -> int:
+        L = 0
+        R = len(nums) - 1
+        currMin = nums[0]
+
+        while L <= R:
+            # If the segment is already sorted, return the first element
+            if nums[L] < nums[R]:
+                currMin = min(currMin, nums[L])
+                break
+            
+            # Binary search logic
+            mid = L + (R - L) // 2
+            currMin = min(currMin, nums[mid])
+
+            # If the middle element is in the right part of the rotated array
+            if nums[mid] >= nums[L]:
+                L = mid + 1
+            else:
+                R = mid - 1
+
+        return currMin
